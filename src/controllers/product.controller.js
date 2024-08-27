@@ -36,4 +36,23 @@ export default class ProductController {
             return res.status(401).send('Product not found')
         }
     }
+
+    postUpdateProduct(req,res,next){
+        ProductModel.update(req.body)
+        var products = ProductModel.get()
+        return res.render('products.ejs',{products:products})
+    }
+
+    deleteProduct(req,res, next){
+        const id = req.params.id
+        const productFound = ProductModel.getById(id)
+        if(!productFound){
+            
+            return res.status(401).send('Product not found')
+        }
+
+        ProductModel.delete(id)
+        var products = ProductModel.get()
+        res.render('products',{products:products})
+    }
 }

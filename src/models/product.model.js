@@ -2,18 +2,18 @@ export default class ProductModel{
 
     constructor(_id,_name,_desc,_price,_imageUrl){
 
-        this.id = _id,
-        this.name= _name,
-        this.desc=_desc,
-        this.price=_price,
+        this.id = _id;
+        this.name= _name;
+        this.desc=_desc;
+        this.price=_price;
         this.imageUrl= _imageUrl
     }
     static get(){
         return products
     }
 
-    static add(productObj){
-        let newProduct = new ProductModel(products.length+1,productObj.name,productObj.desc,productObj.price,productObj.imageUrl)
+    static add(name,desc,price,imageUrl){
+        let newProduct = new ProductModel(products.length+1,name,desc,price,imageUrl)
         products.push(newProduct)
     }
 

@@ -8,12 +8,12 @@ export default class ProductController {
         // console.log(products);
         // console.log(path.resolve());
         // return res.sendFile(path.join(path.resolve(),"src","views","products.html"))
-        return res.render('products',{products:products})
+        return res.render('products',{products:products,userEmail: req.session.userEmail})
     }
 
     getAddForm(req,res){
 
-        return res.render('new-product',{errorMessage:null})
+        return res.render('new-product',{errorMessage:null,userEmail: req.session.userEmail})
     }
 
     addNewProduct(req,res,next){
@@ -23,7 +23,7 @@ export default class ProductController {
         
         ProductModel.add(name,desc, price,imageUrl)
         let products = ProductModel.get()
-        return res.render('products',{products:products})
+        return res.render('products',{products:products,userEmail: req.session.userEmail})
     }
 
     getUpdateProductView(req,res,next){
@@ -32,7 +32,7 @@ export default class ProductController {
         const {id} = req.params
         const productFound = ProductModel.getById(id)
         if(productFound){
-            return res.render('update-product',{product: productFound,errorMessage:null})
+            return res.render('update-product',{product: productFound,errorMessage:null,userEmail: req.session.userEmail})
         }
         // 2. else error
         else{
@@ -43,7 +43,7 @@ export default class ProductController {
     postUpdateProduct(req,res,next){
         ProductModel.update(req.body)
         var products = ProductModel.get()
-        return res.render('products.ejs',{products:products})
+        return res.render('products.ejs',{products:products,userEmail: req.session.userEmail})
     }
 
     deleteProduct(req,res, next){
@@ -56,6 +56,6 @@ export default class ProductController {
 
         ProductModel.delete(id)
         var products = ProductModel.get()
-        res.render('products',{products:products})
+        res.render('products',{products:products,userEmail: req.session.userEmail})
     }
 }
